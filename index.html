@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Free online tools for calculations, text, images and QR codes.">
+<title>Free Tools Hub</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f7fb;color:#172033}
+header{background:linear-gradient(135deg,#123c69,#176b87);color:white;padding:42px 18px;text-align:center}
+header h1{margin:0 0 10px;font-size:36px}header p{margin:0;opacity:.9}
+nav{background:white;padding:12px;text-align:center;box-shadow:0 2px 8px #0001;position:sticky;top:0;z-index:2}
+nav a{color:#176b87;text-decoration:none;margin:0 10px;font-weight:bold}
+.container{max-width:1050px;margin:30px auto;padding:0 16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.card{background:white;border-radius:16px;padding:22px;box-shadow:0 5px 20px #17203312}
+.card h2{font-size:21px;margin-top:0}.card p{color:#667085}
+input,textarea,button,select{width:100%;padding:12px;margin:7px 0;border:1px solid #d7dce5;border-radius:9px;font-size:15px}
+button{background:#176b87;color:white;border:0;cursor:pointer;font-weight:bold}button:hover{opacity:.9}
+.result{background:#eef8fb;padding:12px;border-radius:9px;margin-top:8px;font-weight:bold;min-height:20px}
+section{margin-bottom:35px}footer{background:#172033;color:white;text-align:center;padding:28px;margin-top:45px}
+.small{font-size:13px;color:#667085}
+</style>
+</head>
+<body>
+<header><h1>Free Tools Hub</h1><p>Simple, fast & free online tools</p></header>
+<nav><a href="#tools">Tools</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+
+<div class="container">
+<section id="tools">
+<h2>Popular Free Tools</h2>
+<div class="grid">
+
+<div class="card"><h2>🧮 Percentage Calculator</h2><p>Calculate a percentage of any number.</p>
+<input id="p1" type="number" placeholder="Percentage (%)"><input id="p2" type="number" placeholder="Number">
+<button onclick="calcPercent()">Calculate</button><div class="result" id="percentResult"></div></div>
+
+<div class="card"><h2>🎂 Age Calculator</h2><p>Calculate your age from your date of birth.</p>
+<input id="dob" type="date"><button onclick="calcAge()">Calculate Age</button><div class="result" id="ageResult"></div></div>
+
+<div class="card"><h2>💰 Discount Calculator</h2><p>Find sale price and savings.</p>
+<input id="price" type="number" placeholder="Original price"><input id="discount" type="number" placeholder="Discount %">
+<button onclick="calcDiscount()">Calculate</button><div class="result" id="discountResult"></div></div>
+
+<div class="card"><h2>🔤 Word & Character Counter</h2><p>Count words and characters instantly.</p>
+<textarea id="counter" rows="5" placeholder="Type or paste text..."></textarea>
+<button onclick="countText()">Count</button><div class="result" id="countResult"></div></div>
+
+<div class="card"><h2>🔢 Unit Converter</h2><p>Convert kilometers and miles.</p>
+<input id="unitValue" type="number" placeholder="Enter value">
+<select id="unitType"><option value="kmmi">Kilometers → Miles</option><option value="mikm">Miles → Kilometers</option></select>
+<button onclick="convertUnit()">Convert</button><div class="result" id="unitResult"></div></div>
+
+<div class="card"><h2>🔗 QR Code Generator</h2><p>Create a QR code from a link or text.</p>
+<input id="qrText" placeholder="Enter URL or text">
+<button onclick="makeQR()">Generate QR</button>
+<div class="result" id="qrResult"></div></div>
+
+</div></section>
+
+<section id="about"><div class="card"><h2>About Free Tools Hub</h2>
+<p>Free Tools Hub provides quick browser-based utilities for everyday tasks. No account is required for the tools on this page.</p></div></section>
+
+<section id="contact"><div class="card"><h2>Contact</h2>
+<p>For website feedback, add your email here before publishing.</p>
+<p class="small">This demo is ready to customize with your own contact details, privacy policy and monetization setup.</p></div></section>
+</div>
+
+<footer>© 2026 Free Tools Hub · Free online tools</footer>
+
+<script>
+function calcPercent(){let p=+document.getElementById('p1').value,n=+document.getElementById('p2').value;document.getElementById('percentResult').textContent=(isFinite(p)&&isFinite(n))?(p/100*n).toFixed(2):'Enter both values';}
+function calcAge(){let d=new Date(document.getElementById('dob').value);if(isNaN(d)){ageResult.textContent='Select your date of birth';return}let t=new Date(),a=t.getFullYear()-d.getFullYear(),m=t.getMonth()-d.getMonth();if(m<0||(m===0&&t.getDate()<d.getDate()))a--;ageResult.textContent=a>=0?'Your age is '+a+' years':'Invalid date';}
+function calcDiscount(){let p=+price.value,d=+discount.value;if(isFinite(p)&&isFinite(d)){let s=p*d/100;discountResult.textContent='You save '+s.toFixed(2)+' · Sale price '+(p-s).toFixed(2)}else discountResult.textContent='Enter both values';}
+function countText(){let t=counter.value.trim(),words=t?t.split(/\s+/).length:0;countResult.textContent='Words: '+words+' · Characters: '+counter.value.length;}
+function convertUnit(){let v=+unitValue.value;if(!isFinite(v)){unitResult.textContent='Enter a value';return}unitResult.textContent=unitType.value==='kmmi'?(v*0.621371).toFixed(4)+' miles':(v*1.609344).toFixed(4)+' kilometers';}
+function makeQR(){let t=encodeURIComponent(qrText.value.trim());qrResult.innerHTML=t?'<img alt="QR Code" style="max-width:180px" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data='+t+'">':'Enter text or a URL';}
+</script>
+</body>
+</html>
